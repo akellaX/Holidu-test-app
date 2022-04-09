@@ -1,59 +1,62 @@
-import { Table as MateriaTable, TableContainer } from "@mui/material";
-import React from "react";
-import { useTable } from "react-table";
+import { CircularProgress, Grid, Table as MaterialTable, TableContainer } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Column, useTable } from "react-table";
 import Paper from "@mui/material/Paper";
-import { TableRow, RowType } from "./TableRow";
 import { TableBody } from "./TableBody";
 import { TableHead } from "./TableHead";
+import { prepareTableData } from "../utils/prepareTableData";
+import axios from "axios";
+import { HeaderType, TableResponseType } from "../types";
 
 export const Table = () => {
-    const data = React.useMemo(
-        () => [
-            {
-                col1: "Hello",
-                col2: "World",
-            },
-            {
-                col1: "react-table",
-                col2: "rocks",
-            },
-            {
-                col1: "whatever",
-                col2: "you want",
-            },
-        ],
-        []
-    );
+    const [data, setData] = useState<TableResponseType>([]);
+    const [columns, setColumns] = useState<HeaderType>([]);
 
-    const columns = React.useMemo(
-        () =>
-            [
-                {
-                    Header: "Column 1",
-                    accessor: "col1",
-                },
-                {
-                    Header: "Column 2",
-                    accessor: "col2",
-                },
-            ] as any,
-        []
-    );
+    useEffect(() => {
+        const getResponse = async () => {
+            const response = await axios.get('./data-200.json');
+            // TODO обработать ошибку
+            if (response.status === 200 && response.data) {
+                const preparedData = prepareTableData(response.data);
+                setColumns(preparedData.header);
+                setData(preparedData.body);
+            }
+        }
+        getResponse();
 
+    }, [])
+
+    // @ts-ignore
     const tableInstance = useTable({ columns, data });
 
     const { getTableProps } = tableInstance;
 
-    return (
-        <TableContainer component={Paper}>
-            <MateriaTable
-                sx={{ minWidth: 650 }}
-                aria-label="simple table"
-                {...getTableProps()}
+    if (data.length === 0) {
+        return (
+            <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                height="100vh"
             >
-                <TableHead tableInstance={tableInstance}/>
-                <TableBody tableInstance={tableInstance}/>
-            </MateriaTable>
-        </TableContainer>
+                <CircularProgress/>
+            </Grid>
+        )
+    }
+
+    return (
+        <Grid container justifyContent="center">
+            <TableContainer component={Paper}>
+                <MaterialTable
+                    sx={{ minWidth: 650 }}
+                    aria-label="simple table"
+                    {...getTableProps()}
+                >
+                    <TableHead tableInstance={tableInstance}/>
+                    <TableBody tableInstance={tableInstance}/>
+                </MaterialTable>
+            </TableContainer>
+        </Grid>
+
     );
 };
