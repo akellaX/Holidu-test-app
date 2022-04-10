@@ -12,8 +12,8 @@ export const TableHead = ({ tableInstance }: TableHeadType) => {
     const { headerGroups } = tableInstance;
     return (
         <MaterialTableHead>
-            {headerGroups.map((headerGroup) => (
-                <TableRow element={headerGroup} type={RowType.HEADER}/>
+            {headerGroups.map((headerGroup, i) => (
+                <TableRow key={i} element={headerGroup} type={RowType.HEADER}/>
             ))}
         </MaterialTableHead>
     )

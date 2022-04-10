@@ -17,10 +17,10 @@ export const TableBody = ({tableInstance}: BodyType) => {
 
     return (
         <MaterialTableBody {...getTableBodyProps()}>
-            {rows.map((row) => {
+            {rows.map((row, i) => {
                 prepareRow(row);
                 return (
-                    <TableRow element={row} type={RowType.ROW} />
+                    <TableRow key={i} element={row} type={RowType.ROW} />
                 );
             })}
         </MaterialTableBody>

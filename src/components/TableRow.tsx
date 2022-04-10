@@ -31,9 +31,9 @@ export const TableRow = ({element, type}: RowProps) => {
         const row = element as Row<TableColumnsType>;
         return (
             <StyledTableRow {...row.getRowProps()}>
-                {row.cells.map((cell) => {
+                {row.cells.map((cell, i) => {
                     return (
-                        <TableCell element={cell} type={CellType.CELL}/>
+                        <TableCell key={i} element={cell} type={CellType.CELL}/>
                     );
                 })}
             </StyledTableRow>
@@ -44,8 +44,8 @@ export const TableRow = ({element, type}: RowProps) => {
         const header = element as HeaderGroup<TableColumnsType>;
         return (
             <StyledTableRow {...header.getHeaderGroupProps()}>
-                {header.headers.map((column) => (
-                    <TableCell element={column} type={CellType.HEADER}/>
+                {header.headers.map((column, i) => (
+                    <TableCell key={i} element={column} type={CellType.HEADER}/>
                 ))}
             </StyledTableRow>
         )
