@@ -1,34 +1,18 @@
 import { CircularProgress, Grid, Table as MaterialTable, TableContainer } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { Column, useTable } from "react-table";
+import React from "react";
+import { useTable } from "react-table";
 import Paper from "@mui/material/Paper";
 import { TableBody } from "./TableBody";
 import { TableHead } from "./TableHead";
-import { prepareTableData } from "../utils/prepareTableData";
-import axios from "axios";
 import { HeaderType, TableResponseType } from "../types";
 
-export const Table = () => {
-    const [data, setData] = useState<TableResponseType>([]);
-    const [columns, setColumns] = useState<HeaderType>([]);
-
-    useEffect(() => {
-        const getResponse = async () => {
-            const response = await axios.get('./data-200.json');
-            // TODO обработать ошибку
-            if (response.status === 200 && response.data) {
-                const preparedData = prepareTableData(response.data);
-                setColumns(preparedData.header);
-                setData(preparedData.body);
-            }
-        }
-        getResponse();
-
-    }, [])
+export const Table = ({ data, columns }: {
+    data: TableResponseType,
+    columns: HeaderType,
+}) => {
 
     // @ts-ignore
     const tableInstance = useTable({ columns, data });
-
     const { getTableProps } = tableInstance;
 
     if (data.length === 0) {

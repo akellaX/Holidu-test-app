@@ -4,23 +4,47 @@ import { Table } from './components/Table';
 import { CssBaseline, Grid } from "@mui/material";
 import { theme } from "./utils/theme";
 import { Filter } from "./components/Filter";
+import axios from "axios";
+import { prepareTableData } from "./utils/prepareTableData";
+import { FiltersType, HeaderType, TableColumnsType, TableResponseType } from "./types";
+import { filterDataByArray, filterDataByString } from "./utils/filterData";
+
+let initialData: TableColumnsType[] = [];
 
 function App() {
-    const [filterByName, setFilterByName] = useState<string>('');
-    const [filterByStatus, setFilterByStatus] = useState<string>('');
-    const [filterByPayments, setFilterByPayments] = useState<string[]>([]);
+    const [filters, setFilters] = useState<FiltersType>({
+        filterByName: '',
+        filterByStatus: '',
+        filterByPayments: [],
+    })
+    const [data, setData] = useState<TableResponseType>([]);
+    const [columns, setColumns] = useState<HeaderType>([]);
 
-    const filtersSetters = {
-        filterByName: setFilterByName,
-        filterByStatus: setFilterByStatus,
-        filterByPayments: setFilterByPayments,
-    }
+    useEffect(() => {
+        const getResponse = async () => {
+            const response = await axios.get('./data-200.json');
+            // TODO обработать ошибку
+            if (response.status === 200 && response.data) {
+                const preparedData = prepareTableData(response.data);
+                setColumns(preparedData.header);
+                setData(preparedData.body);
+                initialData = preparedData.body;
+            }
+        }
+        getResponse();
 
-    useEffect(() =>{
-        console.log('name', filterByName);
-        console.log('status', filterByStatus);
-        console.log('payments', filterByPayments);
-    }, [filterByPayments, filterByName, filterByStatus])
+    }, [])
+
+    useEffect(() => {
+        const { filterByName, filterByStatus, filterByPayments } = filters;
+        let newData;
+        newData = filterDataByString(initialData, 'name', filterByName);
+        newData = filterDataByString(newData, 'status', filterByStatus);
+        if (filterByPayments.length > 0) {
+            newData = filterDataByArray(newData, 'paymentModes', filterByPayments);
+        }
+        setData(newData);
+    }, [filters, setData])
 
     return (
         <div>
@@ -35,11 +59,11 @@ function App() {
                     justifyContent="center"
                 >
                     <Grid item xs={8}>
-                        <Filter filterSetters={filtersSetters}/>
+                        <Filter filterSetter={setFilters}/>
                     </Grid>
                 </Grid>
                 <Grid item xs={8}>
-                    <Table/>
+                    <Table data={data} columns={columns}/>
                 </Grid>
             </Grid>
         </div>

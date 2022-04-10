@@ -13,7 +13,7 @@ export const Selector = ({label, items, onChange, selected}: SelectorType) => {
 
     return (
         <FormControl fullWidth>
-            <InputLabel id="simple-select-label">Age</InputLabel>
+            <InputLabel id="simple-select-label">{label}</InputLabel>
             <Select
                 labelId="select-label"
                 id="simple-select"

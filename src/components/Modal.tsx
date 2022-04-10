@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { Selector } from "./Selector";
 import { CheckboxSelector } from "./CheckboxSelector";
-import { FilterSetters } from "../types";
+import { FilterSetters, FiltersType, PaymentMethodsType, StatusType } from "../types";
 
 
 const style = {
@@ -23,23 +23,25 @@ const style = {
 };
 
 // TODO пункт для очистки фильтра
-const selectorStatuses = ['', 'New', 'Live', 'Offline'];
-const paymentMethods = ['Credit Card', 'Bank Transfer', 'PayPal'];
+const selectorStatuses  = ['', 'NEW', 'LIVE', 'OFFLINE'];
+const paymentMethods: PaymentMethodsType[] = ['CREDIT_CARD', 'BANK_TRANSFER', 'PAYPAL'];
 
-export const Modal = ({ open, handleClose, filterSetters }: {
+export const Modal = ({ open, handleClose, filterSetter }: {
     open: boolean,
     handleClose: () => void,
-    filterSetters: FilterSetters,
+    filterSetter: (filter: FiltersType) => void,
 }) => {
     const [name, setName] = useState<string>('');
     const [status, setStatus] = useState<string>('');
     const [payments, setPayments] = useState<string[]>([]);
 
     const acceptFilter = () => {
-        const { filterByName, filterByStatus, filterByPayments } = filterSetters;
-        filterByName(name);
-        filterByPayments(payments);
-        filterByStatus(status);
+        filterSetter({
+            filterByName: name,
+            filterByStatus: status,
+            filterByPayments: payments
+        })
+        handleClose();
     }
 
     return (

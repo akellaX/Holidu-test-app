@@ -27,3 +27,9 @@ export type FilterSetters = {
     filterByStatus: (status: string) => void,
     filterByPayments: (payments: string[]) => void,
 }
+
+export type FiltersType = {
+    filterByName: string,
+    filterByStatus: string,
+    filterByPayments: string[],
+}

@@ -19,7 +19,7 @@ export const CheckboxSelector = ({ items, label, selected, onChange }: CheckboxS
     const list = items.map(item => (
             <FormControlLabel
                 key={item}
-                control={<Checkbox value={item} onChange={onCheckboxChange}/>}
+                control={<Checkbox value={item} checked={selected.indexOf(item) > -1} onChange={onCheckboxChange}/>}
                 label={item}/>
         )
     )
