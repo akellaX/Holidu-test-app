@@ -15,15 +15,9 @@ type RowProps = {
     type: RowType,
 }
 
-export const TableRow = ({element, type}: RowProps) => {
-    const StyledTableRow = styled(MaterialRow)(({theme}) => ({
-        "&:nth-of-type(odd)": {
-            backgroundColor: theme.palette.action.hover,
-        },
-        // hide last border
-        "&:last-child td, &:last-child th": {
-            border: 0,
-        },
+export const TableRow = ({ element, type }: RowProps) => {
+    const StyledTableRow = styled(MaterialRow)(({ theme }) => ({
+        borderCollapse: 'separate',
     }));
 
     // TODO нормальная типизация

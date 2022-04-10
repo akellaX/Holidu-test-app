@@ -5,6 +5,8 @@ import Paper from "@mui/material/Paper";
 import { TableBody } from "./TableBody";
 import { TableHead } from "./TableHead";
 import { HeaderType, TableResponseType } from "../types";
+import { styled } from "@mui/material/styles";
+import { tableCellClasses } from "@mui/material/TableCell";
 
 export const Table = ({ data, columns }: {
     data: TableResponseType,
@@ -14,6 +16,10 @@ export const Table = ({ data, columns }: {
     // @ts-ignore
     const tableInstance = useTable({ columns, data });
     const { getTableProps } = tableInstance;
+
+    const StyledTable = styled(MaterialTable)(({theme}) => ({
+        borderCollapse: 'separate',
+    }))
 
     if (data.length === 0) {
         return (
@@ -31,14 +37,14 @@ export const Table = ({ data, columns }: {
     return (
         <Grid container justifyContent="center">
             <TableContainer component={Paper}>
-                <MaterialTable
+                <StyledTable
                     sx={{ minWidth: 650 }}
                     aria-label="simple table"
                     {...getTableProps()}
                 >
                     <TableHead tableInstance={tableInstance}/>
                     <TableBody tableInstance={tableInstance}/>
-                </MaterialTable>
+                </StyledTable>
             </TableContainer>
         </Grid>
 
