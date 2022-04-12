@@ -1,4 +1,4 @@
-import { CircularProgress, Grid, Table as MaterialTable, TableContainer } from "@mui/material";
+import { Grid, Table as MaterialTable, TableContainer } from "@mui/material";
 import React from "react";
 import { useTable } from "react-table";
 import Paper from "@mui/material/Paper";
