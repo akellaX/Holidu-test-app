@@ -1,23 +1,10 @@
 import React from 'react';
 import { styled } from "@mui/material/styles";
-import { StatusType } from "../types";
+import { StatusType } from "../../types";
 import { Grid } from "@mui/material";
+import { colors } from "./constants";
 
 export const StatusCell = ({status, children}: {status: StatusType, children: React.ReactNode}) => {
-    const colors = {
-        LIVE: {
-            text: '#53c852',
-            background: '#ebf9eb',
-        },
-        NEW: {
-            text: '#f5c94d',
-            background: '#fef8e8',
-        },
-        OFFLINE: {
-            text: '#f04445',
-            background: '#fdebeb',
-        },
-    }
     const StyledStatusCell = styled(Grid)(() => ({
         borderCollapse: 'separate',
         color: colors[status].text,

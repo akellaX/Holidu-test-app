@@ -2,11 +2,10 @@ import { CircularProgress, Grid, Table as MaterialTable, TableContainer } from "
 import React from "react";
 import { useTable } from "react-table";
 import Paper from "@mui/material/Paper";
-import { TableBody } from "./TableBody";
-import { TableHead } from "./TableHead";
-import { HeaderType, TableResponseType } from "../types";
+import { TableBody } from "../TableBody";
+import { TableHead } from "../TableHead";
+import { HeaderType, TableResponseType } from "../../types";
 import { styled } from "@mui/material/styles";
-import { tableCellClasses } from "@mui/material/TableCell";
 
 export const Table = ({ data, columns }: {
     data: TableResponseType,
@@ -17,7 +16,7 @@ export const Table = ({ data, columns }: {
     const tableInstance = useTable({ columns, data });
     const { getTableProps } = tableInstance;
 
-    const StyledTable = styled(MaterialTable)(({theme}) => ({
+    const StyledTable = styled(MaterialTable)(() => ({
         borderCollapse: 'separate',
     }))
 

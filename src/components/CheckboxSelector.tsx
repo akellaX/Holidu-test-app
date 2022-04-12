@@ -1,6 +1,6 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent } from "react";
 import { Checkbox, FormControlLabel, FormGroup, FormLabel } from "@mui/material";
-import { paymentsMap } from "./PaymentCell";
+import { paymentsMap } from "./PaymentCell/constants";
 
 type CheckboxSelectorType = {
     items: string[],
@@ -21,7 +21,7 @@ export const CheckboxSelector = ({ items, label, selected, onChange }: CheckboxS
             <FormControlLabel
                 sx={{height: '25px'}}
                 key={item}
-                control={<Checkbox value={item} checked={selected.indexOf(item) > -1} onChange={onCheckboxChange}/>}
+                control={<Checkbox data-testid={`filter-by-${item}`} value={item} checked={selected.indexOf(item) > -1} onChange={onCheckboxChange}/>}
                 label={paymentsMap[item].name}/>
         )
     )

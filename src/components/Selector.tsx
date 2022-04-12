@@ -1,8 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { StatusType } from "../types";
-import { selectorStatuses } from "./Modal";
-
 type SelectorType = {
     label: string,
     items: string[],
@@ -18,7 +15,7 @@ export const Selector = ({ label, items, onChange, selected }: SelectorType) => 
             <InputLabel id="simple-select-label">{label}</InputLabel>
             <Select
                 labelId="select-label"
-                id="simple-select"
+                data-testid="filter-by-status"
                 value={selected}
                 label={label}
                 onChange={(e => {

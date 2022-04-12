@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import {
     Box,
     Button, Grid,
-    Modal as MaterialModal, TableCell as MaterialTableCell,
+    Modal as MaterialModal,
     TextField
 } from "@mui/material";
-import { Selector } from "./Selector";
-import { CheckboxSelector } from "./CheckboxSelector";
-import { FilterSetters, FiltersType, PaymentMethodsType, StatusType } from "../types";
+import { Selector } from "../Selector";
+import { CheckboxSelector } from "../CheckboxSelector";
+import { FiltersType, PaymentMethodsType } from "../../types";
 import { styled } from "@mui/material/styles";
-import { tableCellClasses } from "@mui/material/TableCell";
 
 
 const style = {
@@ -58,6 +57,7 @@ export const Modal = ({ open, handleClose, filterSetter }: {
 
     return (
         <MaterialModal
+            data-testid="modal"
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
@@ -67,7 +67,7 @@ export const Modal = ({ open, handleClose, filterSetter }: {
                     <TextField
                         sx={{paddingBottom: '10px'}}
                         onChange={e => setName(e.target.value)}
-                        id="outlined-basic"
+                        data-testid="filter-by-name"
                         label="Search by Name"
                         variant="outlined"
                         value={name}
@@ -94,7 +94,7 @@ export const Modal = ({ open, handleClose, filterSetter }: {
                     direction="row"
                     justifyContent="space-between"
                 >
-                    <Button onClick={() => acceptFilter()} variant="contained">Filter</Button>
+                    <Button onClick={() => acceptFilter()} data-testid="accept-filter" variant="contained">Filter</Button>
                     <Button onClick={() => clearFilters()} variant="outlined">Clear Filters</Button>
                 </Grid>
             </Box>

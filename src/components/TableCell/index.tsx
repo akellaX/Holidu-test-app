@@ -3,9 +3,9 @@ import { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
 import { TableCell as MaterialTableCell } from "@mui/material";
 import { Cell, HeaderGroup } from "react-table";
-import { TableColumnsType } from "../types";
-import { StatusCell } from "./StatusCell";
-import { PaymentCell } from "./PaymentCell";
+import { TableColumnsType } from "../../types";
+import { StatusCell } from "../StatusCell";
+import { PaymentCell } from "../PaymentCell";
 
 export const enum CellType {
     HEADER = 'Header',

@@ -22,12 +22,6 @@ export type PreparedTableData = {
     body: TableResponseType,
 }
 
-export type FilterSetters = {
-    filterByName: (name: string) => void,
-    filterByStatus: (status: string) => void,
-    filterByPayments: (payments: string[]) => void,
-}
-
 export type FiltersType = {
     filterByName: string,
     filterByStatus: string,

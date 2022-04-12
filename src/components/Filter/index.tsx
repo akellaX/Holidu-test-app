@@ -1,7 +1,7 @@
 import React from "react";
-import { FilterButton } from "./FilterButton";
-import { Modal } from "./Modal";
-import { FiltersType } from "../types";
+import { FilterButton } from "../FilterButton";
+import { Modal } from "../Modal";
+import { FiltersType } from "../../types";
 import { Grid } from "@mui/material";
 
 type FilterType = {

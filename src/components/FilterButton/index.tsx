@@ -9,6 +9,7 @@ const buttonStyle = {
 
 export const FilterButton = ({ handleOpen }: { handleOpen: () => void }) => (
     <Button
+        data-testid="open-filter-button"
         onClick={handleOpen}
         style={buttonStyle}
         className="filter-button"

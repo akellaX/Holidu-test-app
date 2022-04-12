@@ -16,7 +16,7 @@ type RowProps = {
 }
 
 export const TableRow = ({ element, type }: RowProps) => {
-    const StyledTableRow = styled(MaterialRow)(({ theme }) => ({
+    const StyledTableRow = styled(MaterialRow)(() => ({
         borderCollapse: 'separate',
     }));
 
