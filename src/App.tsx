@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Table } from './components/Table';
-import { CssBaseline, Grid, Typography } from "@mui/material";
+import { CircularProgress, CssBaseline, Grid, Typography } from "@mui/material";
 import { theme } from "./utils/theme";
 import { Filter } from "./components/Filter";
 import axios from "axios";
@@ -19,16 +19,47 @@ function App() {
     })
     const [data, setData] = useState<TableResponseType>([]);
     const [columns, setColumns] = useState<HeaderType>([]);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    const renderTable = () => {
+        if (!isLoaded) {
+            return (
+                <Grid
+                    container
+                    justifyContent="center"
+                    alignItems="center"
+                    height="100vh"
+                >
+                    <CircularProgress/>
+                </Grid>
+            )
+        }
+        if (data.length === 0) {
+            return (
+                <Grid
+                    container
+                    justifyContent="center"
+                    alignItems="center"
+                    height="100vh"
+                >
+                    <Typography variant="h2">
+                        Table is Empty
+                    </Typography>
+                </Grid>
+            )
+        }
+        return  <Table data={data} columns={columns}/>
+    }
 
     useEffect(() => {
         const getResponse = async () => {
             const response = await axios.get('./data-200.json');
-            // TODO обработать ошибку
             if (response.status === 200 && response.data) {
                 const preparedData = prepareTableData(response.data);
                 setColumns(preparedData.header);
                 setData(preparedData.body);
                 initialData = preparedData.body;
+                setIsLoaded(true)
             }
         }
         getResponse();
@@ -53,26 +84,26 @@ function App() {
             bgcolor={theme.palette.grey["100"]}
         >
             <CssBaseline/>
-            <Grid
-                container
-                justifyContent="center"
-            >
-                <Grid
-                    container
-                    justifyContent="center"
-                    paddingBottom="20px"
-                >
-                    <Grid container justifyContent="space-between" xs={8} md={8}>
-                        <Typography variant="h3">
-                            Table
-                        </Typography>
-                        <Filter filterSetter={setFilters}/>
+            <Grid container justifyContent="center">
+                <Grid item xs={10} md={8}>
+                    <Grid
+                        container
+                        justifyContent="center"
+                        paddingBottom="20px"
+                    >
+                        <Grid container justifyContent="space-between">
+                            <Typography variant="h3">
+                                Table
+                            </Typography>
+                            <Filter filterSetter={setFilters}/>
+                        </Grid>
+                    </Grid>
+                    <Grid>
+                        {renderTable()}
                     </Grid>
                 </Grid>
-                <Grid item xs={10} md={8}>
-                    <Table data={data} columns={columns}/>
-                </Grid>
             </Grid>
+
         </Grid>
     );
 }

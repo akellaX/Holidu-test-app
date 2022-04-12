@@ -20,19 +20,6 @@ export const Table = ({ data, columns }: {
         borderCollapse: 'separate',
     }))
 
-    if (data.length === 0) {
-        return (
-            <Grid
-                container
-                justifyContent="center"
-                alignItems="center"
-                height="100vh"
-            >
-                <CircularProgress/>
-            </Grid>
-        )
-    }
-
     return (
         <Grid container justifyContent="center">
             <TableContainer component={Paper}>
