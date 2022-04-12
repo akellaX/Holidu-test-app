@@ -62,14 +62,14 @@ function App() {
                     justifyContent="center"
                     paddingBottom="20px"
                 >
-                    <Grid container justifyContent="space-between" xs={8}>
+                    <Grid container justifyContent="space-between" xs={8} md={8}>
                         <Typography variant="h3">
                             Table
                         </Typography>
                         <Filter filterSetter={setFilters}/>
                     </Grid>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={10} md={8}>
                     <Table data={data} columns={columns}/>
                 </Grid>
             </Grid>

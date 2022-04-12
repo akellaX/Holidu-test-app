@@ -18,13 +18,14 @@ export const StatusCell = ({status, children}: {status: StatusType, children: Re
             background: '#fdebeb',
         },
     }
-    const StyledStatusCell = styled(Grid)(({ theme }) => ({
+    const StyledStatusCell = styled(Grid)(() => ({
         borderCollapse: 'separate',
         color: colors[status].text,
         background: colors[status].background,
         textAlign: 'center',
         padding: '5px 15px',
         minWidth: '90px',
+        maxWidth: '120px',
     }));
 
     return (
