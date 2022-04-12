@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import {
     Box,
-    Button,
-    Modal as MaterialModal,
+    Button, Grid,
+    Modal as MaterialModal, TableCell as MaterialTableCell,
     TextField
 } from "@mui/material";
 import { Selector } from "./Selector";
 import { CheckboxSelector } from "./CheckboxSelector";
 import { FilterSetters, FiltersType, PaymentMethodsType, StatusType } from "../types";
+import { styled } from "@mui/material/styles";
+import { tableCellClasses } from "@mui/material/TableCell";
 
 
 const style = {
@@ -23,7 +25,7 @@ const style = {
 };
 
 // TODO пункт для очистки фильтра
-const selectorStatuses  = ['', 'NEW', 'LIVE', 'OFFLINE'];
+export const selectorStatuses  = ['-', 'New', 'Live', 'Offline'];
 const paymentMethods: PaymentMethodsType[] = ['CREDIT_CARD', 'BANK_TRANSFER', 'PAYPAL'];
 
 export const Modal = ({ open, handleClose, filterSetter }: {
@@ -35,6 +37,10 @@ export const Modal = ({ open, handleClose, filterSetter }: {
     const [status, setStatus] = useState<string>('');
     const [payments, setPayments] = useState<string[]>([]);
 
+    const StyledGrid = styled(Grid)(() => ({
+        paddingBottom: '10px',
+    }));
+
     const acceptFilter = () => {
         filterSetter({
             filterByName: name,
@@ -42,6 +48,12 @@ export const Modal = ({ open, handleClose, filterSetter }: {
             filterByPayments: payments
         })
         handleClose();
+    }
+
+    const clearFilters = () => {
+        setName('');
+        setStatus('');
+        setPayments([]);
     }
 
     return (
@@ -52,26 +64,39 @@ export const Modal = ({ open, handleClose, filterSetter }: {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <TextField
-                    onChange={e => setName(e.target.value)}
-                    id="outlined-basic"
-                    label="Search by Name"
-                    variant="outlined"
-                    value={name}
-                />
-                <Selector
-                    label={'Status'}
-                    selected={status}
-                    items={selectorStatuses}
-                    onChange={setStatus}
-                />
-                <CheckboxSelector
-                    selected={payments}
-                    onChange={setPayments}
-                    label={'Payment Methods'}
-                    items={paymentMethods}
-                />
-                <Button onClick={() => acceptFilter()} variant="contained">Filter</Button>
+                    <TextField
+                        sx={{paddingBottom: '10px'}}
+                        onChange={e => setName(e.target.value)}
+                        id="outlined-basic"
+                        label="Search by Name"
+                        variant="outlined"
+                        value={name}
+                    />
+                <StyledGrid item>
+                    <Selector
+                        label={'Status'}
+                        selected={status}
+                        items={selectorStatuses}
+                        onChange={setStatus}
+                    />
+                </StyledGrid>
+                <StyledGrid item>
+                    <CheckboxSelector
+                        selected={payments}
+                        onChange={setPayments}
+                        label={'Payment Methods'}
+                        items={paymentMethods}
+                    />
+                </StyledGrid>
+                <Grid
+                    sx={{paddingTop: '10px'}}
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                >
+                    <Button onClick={() => acceptFilter()} variant="contained">Filter</Button>
+                    <Button onClick={() => clearFilters()} variant="outlined">Clear Filters</Button>
+                </Grid>
             </Box>
         </MaterialModal>
     )

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { StatusType } from "../types";
+import { selectorStatuses } from "./Modal";
 
 type SelectorType = {
     label: string,
@@ -8,7 +10,7 @@ type SelectorType = {
     onChange: (s: string) => void,
 }
 
-export const Selector = ({label, items, onChange, selected}: SelectorType) => {
+export const Selector = ({ label, items, onChange, selected }: SelectorType) => {
     const list = items.map(item => (<MenuItem key={item} value={item}>{item}</MenuItem>))
 
     return (
@@ -19,7 +21,11 @@ export const Selector = ({label, items, onChange, selected}: SelectorType) => {
                 id="simple-select"
                 value={selected}
                 label={label}
-                onChange={(e => onChange(e.target.value))}
+                onChange={(e => {
+                        const newVal = e.target.value === '-' ? '' : e.target.value;
+                        onChange(newVal)
+                    }
+                )}
             >
                 {list}
             </Select>

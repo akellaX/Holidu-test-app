@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import { Checkbox, FormControlLabel, FormGroup, FormLabel } from "@mui/material";
+import { paymentsMap } from "./PaymentCell";
 
 type CheckboxSelectorType = {
     items: string[],
@@ -18,15 +19,23 @@ export const CheckboxSelector = ({ items, label, selected, onChange }: CheckboxS
     }
     const list = items.map(item => (
             <FormControlLabel
+                sx={{height: '25px'}}
                 key={item}
                 control={<Checkbox value={item} checked={selected.indexOf(item) > -1} onChange={onCheckboxChange}/>}
-                label={item}/>
+                label={paymentsMap[item].name}/>
         )
     )
     return (
         <div>
-            <FormLabel>{label}</FormLabel>
-            <FormGroup>
+            <FormLabel sx={{
+                fontSize: '16px',
+                fontWeight: 'bold',
+            }}>
+                {label}
+            </FormLabel>
+            <FormGroup sx={{
+                paddingTop: '10px',
+            }}>
                 {list}
             </FormGroup>
         </div>

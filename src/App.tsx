@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Table } from './components/Table';
-import { CssBaseline, Grid } from "@mui/material";
+import { CssBaseline, Grid, Typography } from "@mui/material";
 import { theme } from "./utils/theme";
 import { Filter } from "./components/Filter";
 import axios from "axios";
@@ -47,18 +47,25 @@ function App() {
     }, [filters, setData])
 
     return (
-        <div>
+        <Grid
+            container
+            paddingTop="30px"
+            bgcolor={theme.palette.grey["100"]}
+        >
             <CssBaseline/>
             <Grid
                 container
                 justifyContent="center"
-                bgcolor={theme.palette.grey["100"]}
             >
                 <Grid
                     container
                     justifyContent="center"
+                    paddingBottom="20px"
                 >
-                    <Grid item xs={8}>
+                    <Grid container justifyContent="space-between" xs={8}>
+                        <Typography variant="h3">
+                            Table
+                        </Typography>
                         <Filter filterSetter={setFilters}/>
                     </Grid>
                 </Grid>
@@ -66,7 +73,7 @@ function App() {
                     <Table data={data} columns={columns}/>
                 </Grid>
             </Grid>
-        </div>
+        </Grid>
     );
 }
 
