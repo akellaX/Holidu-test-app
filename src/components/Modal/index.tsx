@@ -12,7 +12,7 @@ import { styled } from "@mui/material/styles";
 
 
 const style = {
-    position: 'absolute' as 'absolute',
+    position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
@@ -23,14 +23,13 @@ const style = {
     p: 4,
 };
 
-// TODO пункт для очистки фильтра
 export const selectorStatuses  = ['-', 'New', 'Live', 'Offline'];
 const paymentMethods: PaymentMethodsType[] = ['CREDIT_CARD', 'BANK_TRANSFER', 'PAYPAL'];
 
-export const Modal = ({ open, handleClose, filterSetter }: {
+export const Modal = ({ open, handleClose, setFilters }: {
     open: boolean,
     handleClose: () => void,
-    filterSetter: (filter: FiltersType) => void,
+    setFilters: (filter: FiltersType) => void,
 }) => {
     const [name, setName] = useState<string>('');
     const [status, setStatus] = useState<string>('');
@@ -41,10 +40,10 @@ export const Modal = ({ open, handleClose, filterSetter }: {
     }));
 
     const acceptFilter = () => {
-        filterSetter({
-            filterByName: name,
-            filterByStatus: status,
-            filterByPayments: payments
+        setFilters({
+            byName: name,
+            byStatus: status,
+            byPayments: payments
         })
         handleClose();
     }

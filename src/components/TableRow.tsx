@@ -20,7 +20,6 @@ export const TableRow = ({ element, type }: RowProps) => {
         borderCollapse: 'separate',
     }));
 
-    // TODO нормальная типизация
     if (type === RowType.ROW) {
         const row = element as Row<TableColumnsType>;
         return (

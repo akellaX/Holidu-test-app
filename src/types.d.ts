@@ -23,7 +23,7 @@ export type PreparedTableData = {
 }
 
 export type FiltersType = {
-    filterByName: string,
-    filterByStatus: string,
-    filterByPayments: string[],
+    byName: string,
+    byStatus: string,
+    byPayments: string[],
 }

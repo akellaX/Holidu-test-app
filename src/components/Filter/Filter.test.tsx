@@ -4,7 +4,7 @@ import { Filter } from "./index";
 
 describe('Filter', () => {
     test('Open modal', () => {
-        render(<Filter filterSetter={jest.fn()} />)
+        render(<Filter setFilters={jest.fn()} />)
 
         const openModalButton = screen.getByTestId('open-filter-button');
         fireEvent.click(openModalButton);

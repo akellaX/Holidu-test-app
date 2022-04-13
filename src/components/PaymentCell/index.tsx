@@ -4,8 +4,7 @@ import { PaymentMethodsType } from "../../types"
 import { paymentsMap } from "./constants";
 
 export const PaymentCell = ({ payments }: { payments: PaymentMethodsType[] }) => {
-
-    const list = payments.sort().map(el => {
+    const list = [...payments].sort().map(el => {
         const Icon = paymentsMap[el].icon;
         return (
             <Grid alignContent="center" direction="row" container key={el}>

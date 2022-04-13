@@ -32,7 +32,6 @@ export const TableCell = ({ element, type }: CellProps) => {
         },
     }));
 
-    // TODO поправить типы
     const props = type === CellType.CELL ? (element as any).getCellProps() : (element as any).getHeaderProps();
     if (type === CellType.CELL) {
         const cell = element as Cell<TableColumnsType>;

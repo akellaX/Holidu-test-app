@@ -1,6 +1,6 @@
-import { Grid, Table as MaterialTable, TableContainer } from "@mui/material";
+import { Grid, Table as MaterialTable, TableContainer, Typography } from "@mui/material";
 import React from "react";
-import { useTable } from "react-table";
+import { Column, useTable } from "react-table";
 import Paper from "@mui/material/Paper";
 import { TableBody } from "../TableBody";
 import { TableHead } from "../TableHead";
@@ -19,6 +19,21 @@ export const Table = ({ data, columns }: {
     const StyledTable = styled(MaterialTable)(() => ({
         borderCollapse: 'separate',
     }))
+
+    if (data.length === 0) {
+        return (
+            <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                height="100vh"
+            >
+                <Typography variant="h2">
+                    Table is Empty
+                </Typography>
+            </Grid>
+        )
+    }
 
     return (
         <Grid container justifyContent="center">
